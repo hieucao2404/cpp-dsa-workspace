@@ -1,0 +1,4 @@
+OOP Using C++
+ 1.1 Abstract Data Types
+  - The larger and more cimplex the project the more detailed the outline phase should be. The implementation details should be deleyed to the later stages of the project
+   - From tht start, it is important to specify each task in terms of input and output. At the beginning stages, we should  be more concerned with what the program should do 
