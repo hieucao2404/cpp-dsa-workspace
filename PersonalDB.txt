@@ -1,0 +1,2 @@
+123456789John Doe   New York   1990    50000
+987654321Jane Smith Los Angeles1985    60000

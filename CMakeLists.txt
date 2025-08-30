@@ -19,3 +19,6 @@ target_link_libraries(ex_creditcard PRIVATE creditcard)
 
 #Program examle1-4-5
 add_executable(ex_ptfunc src/Example1-4-5.cpp)
+
+#useDatabase
+add_executable(ex_useDatabase src/useDatabase.cpp exercises/Personal.cpp)
