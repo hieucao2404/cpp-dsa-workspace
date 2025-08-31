@@ -1,4 +1,114 @@
 OOP Using C++
  1.1 Abstract Data Types
   - The larger and more cimplex the project the more detailed the outline phase should be. The implementation details should be deleyed to the later stages of the project
-   - From tht start, it is important to specify each task in terms of input and output. At the beginning stages, we should  be more concerned with what the program should do 
+  - From tht start, it is important to specify each task in terms of input and output. At the beginning stages, we should  be more concerned with what the program should do, not how it should  or could be done. -> Behavior of the program is more important than the gears of the mechanism accomplishing it
+  The implementation decides which data structure should be used to make execution most efficient in terms of time and space. An item specifed intermsof operation is called abstract data type
+ 
+ 1.2 Encapsulation
+ - Functions defined in a class are called methods, member functions or function members, and variables used in a class called data members ---> This combination of the data and related operations is called data encapsulation. Object is an instance of a class
+ - First, this strong coupling of data and operations can be used much better in modeling a fragment of the world, whichh is emphasized especially by software engineering.
+ - Second, objects allow for easier error finding because operations are localized to the confines of their subtject, side effect can be easy to trace
+ - Third, objects allow us to conceal certain details of their operations form other objecsts so that these operations may not be adversely affected by other objects ->>> Inforamation hiding principle
+ ----> OOL is like a watch, as a user we care about the hands show, not innenr working. We are aware that there are gears springs inside, but lack of knowledge, we should not access it to avoid damaging it
+ - Know Object does but not becase how it does each other
+
+ 1.4 Pointers
+ - Variables used in a program can be consider as boxes that a re never empty;  they are filled with some content either by the programmeer or os system.
+ - Variable has at least 2 values - the content or value and the location of the box or variable in computer memmory
+ - The value can also e the location of another varible and varibale with such contents are called pointers
+ - Pointers are ussually auxiliary variables which allow us to acces the values of other variables indirectly
+ - A pointer is analogous to a road sign that leads us to a certain location or to a slip of paper on which an address has been jotted down
+
+ - pointers like all var - also have two att: content and location
+ - It is useful to have a null pointer (point to nothing). -> value 0	
+
+  1.4.1 Pointer and Array
+  - Array notatio used int he loop which adds all numbers in a
+   int a[a], *p;
+   for (sum  = a[0], i = 1; i<5; i++){
+   	sum += a[i];
+   }
+   can be repace by a pointer notation
+
+   for (sum = *a, i = 1; i < 5; i++)
+   	sum += *(a+i);
+
+   or by
+
+   	for(sum *a, p=a+1; p< +5; p++)
+   		sum += *p;
+
+  1.4.2 Pointers and Copy Constructors
+  - Some problems can arsise when pointer data members are now handled properly when copying data from one object to another.
+
+  struct Node {
+  char *name;
+  int age;
+  Node(char *n = "", int a = 0) {
+  	name = new char[strlen(n) + 1];
+  	strcpy(name, n);
+  	age = a;
+  }
+
+  - The intention is to crate object node1, assign values to the two data members in node1, and then create node2 and initialize its data members to the same value as in node 1
+
+  1.4.3 Pointers and Destructors
+  - A destructor is a fuction that is automatically involed when an object is detroyed, which takes place upon exit from the block
+
+  1.4.4 Pointers and Reference Variables
+  	int n =5, *p = &n, &r = n;
+  	cout << n << ' ' << *p << ' ' << r << endl;
+  	outputs 555
+
+  	- Reference variables are used in passing arguments by reference to function calss. Passing by reference is required if an acutal parameter shuld be changed permanently during execution of a function
+
+  1.4.5 Pointers to Functions
+  double f(double x){
+  	return 28x;
+  }
+
+  - To compute the sum, we have to supply not only limits n and m, but also a function f
+  	double sum(double(*f)(double), int n, int m) {
+  		double result = 0;
+  		for (int i= n, i<=m; i++)
+  			result += f(i);
+  			return result
+  	}
+
+ 1.5 Polymorphism
+ 	- Polymorphism means many form.
+
+ 1/8 Vectors in the STL
+  - Vector is the data structure with contigouus blocks of memory just like an array. Becasue memory locations are contiguous, they can be randomly accesses so that the access time of any element of the vector is constant
+
+
+  EXERCIESE
+  3. int intArray[] = {1, 2, 3}, *p = intArray;
+        a. *p++; <=> *(p++) = intArray[1];
+        b. (*p)++; <=> position stay unchanged but the value inrease 1 => intArray ={2, 2, 3}
+        c. *p++; (*p)++ <=> intArra[1]++ => intArray{1,3,3};
+
+  4. Using Pointer to write a function to add numbers in an integer array
+    int arr[] = {1,2,3,4}
+    int *p = arr;
+    int sum = 0;
+    for(int i = -; i < sizeof(arr); i++) {
+        sum += *p;
+        p++;
+        } 
+
+     *end = arr + size
+     while(p < end){
+      sum  += *p;
+      p++
+     }      
+    b. A function to remove all odd nummbers from an ordered array. The array should remanin ordered. 
+    Would it be easier to write functtioon if the array were unordered
+
+    int arr[] = {3213,4324234,4546,6546,3763}
+    int *p = arr
+
+ 
+    9. Overloaded in C++ means providing multiple definitions for a function or operator wth different parameter types or Contributions
+
+    
