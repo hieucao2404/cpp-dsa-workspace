@@ -79,3 +79,7 @@ Follow the menu to add, find, or modify records in the database.
 ## Notes
 - All exercises and examples are for educational purposes.
 - Contributions and suggestions are welcome!
+## TextBook
+Data Structures And Algorithms in C++
+Second Edition
+Adam Drozdek
