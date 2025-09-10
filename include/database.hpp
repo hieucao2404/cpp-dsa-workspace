@@ -1,7 +1,9 @@
 #include <iostream>
 #include <fstream>
-#ifndef DATABASE
-#define DATABASE
+#include <string>
+#include <limits>
+#ifndef DATABASE_HPP
+#define DATABASE_HPP
 
 template<class T>
 class Database{
@@ -89,27 +91,27 @@ void Database<T>::run() {
     
     while (true){
         std::cout << "Enter an option: ";
-        std::cin.getline(std::cin,option);
-        if(option == '1'){
+        std::getline(std::cin, option);
+        if(option == "1"){
             std::cin >> rec; 
             std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
             add(rec);
         }
-        else if(option == '2'){
+        else if(option == "2"){
             rec.readKey();
             std::cout << "The record is ";
             if(!find(rec))
                 std::cout << "not ";
             std::cout << "in the database\n";
         }
-        else if(option == '3'){
+        else if(option == "3"){
             rec.readKey();
             modify(rec);
         }
-        else if (option == '4')
+        else if (option == "4")
             return;
         else 
-            std::cout << "Wrong option: ";
+            std::cout << "Wrong option\n";
         std::cout << *this;
     }
 }

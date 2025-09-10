@@ -1,0 +1,90 @@
+WHY LINKED LIST?
+	Array has 2 limitations
+	- its size has to be known at compilation time
+	- the data in the array are seperated in computer memory by the same distance, which means that inserting an intem inside the array requires shifting other data in the array
+
+	We solve this by using LINKED STRUCTURE
+	A linked structure is a collection of nodes storing data and links to other nodes
+
+I. SINGLY LINKED LISTS
+	- If a node contains a data member that is a pointer to another node, then many ndoes can strung together using only one variable to acces the entire sequence of nodes.
+	- This implement by using linked list, which is a data structure composed of ndoes, each node holding some information and a pointer to anotehr node in the list
+	*NOTE: The last node on the list can be recognized by the null pointer.
+	- A node includes two data members: info and next
+	 + The info member is used to store information, important to user
+	 + The next member is used to link together ndoes to form a linked list
+
+	- A singli linked list implementaion uses two classes: 
+	 + IntNode: for Nodes of the list and anotehr
+	 + IntSLList: for acces to the list. This delfines two data members, head and tail which are pointer to the first and the last nodes of the list. This explains why all memerbs of IntNode are declared public
+
+	1. INSERTION
+	 - Adding a node at the beginnig of a linkled list is performed in four steps
+	  i/ An empty node is created. It is empty in the senset that program performing insertion does not assign any values to the data membsers of the node. 
+	  ii/ The node's info member ins initialized to a particular integer.
+	  iii/ Because the node is being included at the front of the list, the next member becomes a pointer to the first node on the list, that is, the current value of head.
+	  iv/ The enw precedes all the nodes onthe list, but this fact has to be reflected in the value of head; otherwise, the new ndoe is not accessible. Therefore, head is updated to become the pointer to the new node.
+
+	 - The process of adding a new ndoe to the end of the list has five steps
+	  i/ An empty node is created
+	  ii/ The node's infopr member is initialize to an integer el
+	  iii/ Because the ndoe is being included at the end of the list, the next member is set to null
+	  iv/ The node is now included in the list by making the nexst member of the last node of the list a pointer to the newly created node
+	  v/ The new node follows all the nodes of the list, but this fact has to be reflected in the value of tail, which now becomse the pointer to the new node
+
+	2. DELETION
+	 - When attempting to remove a node from an empty linked list. the caller expect a number to be returned fromthe call to deleteFromHead() and no number reuturn, can not be avle to accomplish other operations.
+	 - One ways to solve this problem is using an ASSERT statement:
+	 int IntSLList::deleteFromHead() {
+	 	assert(!isEmpty()); 
+	 	int el = head->info
+	 	......................
+	 	return el;
+	 }
+	 The assert statement checks the condition !isEmpty(), and if the condition is false, the program is aborted
+	 - Another solotion is throw an exception and catch it by user as in
+
+	 int IntSLList::deleteFromHead(){
+	 	if(isEmpty())
+	 		throw("Empty");
+	 	int el = head->info;
+	 	..........
+	 	return el;
+	 }
+
+	 The throow clause with the string argument is expected to have a matching try-catch clause in the caller
+	 
+	 void f() {
+	  ....................
+	  try {
+	  n = list.deleteFromHead();
+	  //do sth with n;
+	  } catch(char *s){
+	   cerr << "Error: " << s << endl;
+	  }
+	  .................
+	 }
+
+	 - The second special case is whent the list has only one node to be removed. In this case, the list becomes empty, which requires setting tail and head to null
+
+	 The second deletion operation is deleting a node from the end of the list
+	  - After removing a node, tail should refer to the new tail of the list, that is tail has to be move backward(impossible because no direct link to the PREDECESSOR)
+	  - This predecessor has to be found by searching from the beginning of the list and stopping right before
+	  - This accomplish with a tmp variable used to scan the list within a for loop. Start at head and move one step each iteration
+	  - When delete,tai pointing to non-existing node, it immediate set to point to the next to last node currently pointed to by tmp
+
+	 The third, delete node inside
+	  - The func has 2 pt vars, pred and tmp
+	  - one point to the first, one to the 2nd
+	  - Basically the tmp and pred travel together, when tmp found the node, the pred jump over the tmp point to tmp->next
+
+	 Some remaining cases
+	  i/ An attemp to remove a node from an empty list, in which case the function is immediately exited
+	  ii/ Deleting the only node from a one-node linked list: Both head and tail are set to null
+	  iii/ Removing the first node of the list with at least two nodes which requires updating head
+	  iv/ Remong the last of the list wth at least two nodes, elading to the update of tail
+	  v/ An attemp to delete a node with a number that is not in the list: Do nothing
+
+	3. SEARCH
+		
+
