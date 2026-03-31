@@ -86,5 +86,57 @@ I. SINGLY LINKED LISTS
 	  v/ An attemp to delete a node with a number that is not in the list: Do nothing
 
 	3. SEARCH
-		
+		.... jump to each node only linear
 
+
+
+II/ DOUBLY LINKED LIST
+	In deleteFromTail(), we have to scann the entire list to stop right in front of tail to delele it. For long lists and for frequent executions of deleteFromTail(), this may be an impediment to swift list processing. To avoid this problem, the linked list is redefined so that each node in the list has two pointers, one to the successor, and one to the perdecessor
+
+	Member functions for processing dll are more complicated than sll because there is more pointer memer to be maintained. Only 2 function are discussed:
+	 - Insert node at the end
+	 - Delete node at the end
+
+	To add a node to alist, the node has to be created, its data members properly initialized, and then the noe needs to be incorporated into the list. Inserting a node at the end of a dll list 
+		1. A new node is created and then its 3 data members are intialized
+		2. the info mmeber to the number el being inserted
+		3. the next member to null
+		4. and the prev member to the value of tail so that this member points to the last node in the list. But now the new node should become the last node;
+		5. tail is set to point to the new node. But the new node is not yet accessible from its predecessor
+		6. The next member of the predecessor is set to point to the new node
+
+	Deleting the last node to its predecessor and not loop is need to remove is direct acces from the last node from the list, temp variable el is set to the value in the node, then tail is set to its predecessir, and the last and now reduncdant node is deleted
+
+	An attem to delete a node from an empty list may result in a program crash. Therefore, the use has to check whether the list in not empty before makeing an atemp of deleting the last node from it to extract information from the node
+
+
+III/ Circular List
+	A circular list is needed in which nodes form a ring: The list is finite and each node has a successor
+	In an implementaion of a circular singly linked list, we can use only one permanent pointer, tail, to the list even throug operations ont he list requiere access to the tail and its predecessor, the head. To that end, a linear singly linked list discussed iuses two permanent pointer head and tail
+
+IV/ SKIP LISTS
+	Linkedlist require sequential scanning O(n). A skip list is an interesting variant of the ordered linked list which akes such a nonsequential search possible
+	- In a skip list of n nodes, for each k and i such that i <= k <= [ln n] and 1<= i <= [n/2^k-1] - 1, the node in the postion (2^k-1) x i points to the node in the posion (2^k-1) x (i+1).
+
+		find (element el)
+			p = the nonnull list on the highest level i;
+				while el not found and i >= 0
+					if p->key < el
+					p = a subslist that begins in the predecessor of p on level --i;
+				else if p->key > el
+					if p is the last node on level i
+						p = a nonnull sublist that begins in p on the highest level <i;
+						i = the number of the new level;
+					else p = p->next;
+
+V/ Self-Organizing Lists
+	The introduction of skip list was motivated by the need to speed up the seching process. Although sll and dll requires sequestial search to locate an element or to see that it is not in the list, we can improve the efficiececyy of the search by dynamically organizing the list in a certain manner
+
+	1. Move-to-front method: After the desired element is located, put it at the beginneing of the list
+	2. Transpose method: After the desired element is located, swap it with its predecessor unless it is at the head of the list
+	3. Count method. Order the list by the number of times elements are being accessed
+	4. Ordering method. Order the list using certain criteria natural for information under scrutiny
+
+	- Analyses of the effciency of these methods customarily compare their efficiency to that of optimal static ordering. With this ordering, all the data are already ordered by the frequency of their occurrence in the body of data so that the list is used only for searching, not for inserting new items
+	---> This approach requires two passes through the body of data, one to build the list and nother to the list for search alone. 
+		
