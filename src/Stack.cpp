@@ -1,6 +1,8 @@
 #include "getStack.hpp"
 #include <string>
 #include <iostream>
+#include <sstream>
+#include <cmath>
 
 /**
  * Problem Statement
@@ -88,7 +90,7 @@ bool isOperand(char ch) {
     return isalnum(ch);
 }
 bool isOperator(char ch) {
-    return ch = '+' || ch == '-' || ch == '*' || ch == '/';
+    return ch == '+' || ch == '-' || ch == '*' || ch == '/';
 }
 //Convert infix to postfix
 string infixToPostfix(const string& infix) {
@@ -139,6 +141,74 @@ string infixToPostfix(const string& infix) {
     return postfix;
 }
 
+/**
+ * Calculate the result of a postfix (Reverse Polish Notation) expression.
+
+Input: 2 3 + → Output: 5
+Input: 2 3 4 * + → Output: 14 (because 3 * 4 = 12, then 2 + 12 = 14)
+Input: 5 2 / 3 + → Output: 5.5 (5 / 2 = 2.5, then 2.5 + 3 = 5.5)
+Why Postfix is Easy to Evaluate:
+
+No precedence rules to worry about
+Just use a stack: push operands, pop when you see an operator
+Examples:
+
+2 3 + → 2 3 + = 5
+2 3 4 * + → 2 (3 4 *) + = 2 12 + = 14
+10 5 / 2 + → (10 5 /) 2 + = 2 2 + = 4
+ */
+
+double applyOperator(double left, double right, char op) {
+    switch(op) {
+        case '+': return left + right;
+        case '-': return left - right;
+        case '*': return left * right;
+        case '/':
+            if(right == 0) throw runtime_error("Divisioon by zero ?!?");
+            return left/ right;
+        default: throw runtime_error("Unknown operator");
+    }
+}
+
+// Evaluate postfix expression
+double evaluatePostfix(const string& postfix) {
+    Stack<double> numStack;
+    stringstream ss(postfix);
+    string token;
+
+    while(ss >> token){
+        // single charactore operand
+        if(token.length() == 1 && isOperand(token[0])){
+            numStack.push(stod(token));
+        }
+
+        //Multi-digit number or operator
+        else if(isOperator(token[0])){
+             if (numStack.isEmpty()) {
+                throw runtime_error("Invalid postfix expression: not enough operands");
+            }
+            
+            double right = numStack.pop();
+            
+            if (numStack.isEmpty()) {
+                throw runtime_error("Invalid postfix expression: not enough operands");
+            }
+            double left = numStack.pop();
+            double result = applyOperator(left, right, token[0]);
+            numStack.push(result);
+        }
+        else {
+            //Multi-digi numbner
+            numStack.push(stod(token));
+        }
+    }
+    if(numStack.isEmpty()) {
+        throw runtime_error("Invalid postfix expression: empty");
+    }
+    return numStack.pop();
+}
+
+
 int main() {
     // Test cases
     vector<string> tests = {
@@ -173,6 +243,31 @@ int main() {
         cout << "Infix:   " << test << endl;
         cout << "Postfix: " << result << endl;
         cout << endl;
+    }
+
+    vector<pair<string, double>> test3 = {
+        {"2 3 +", 5},
+        {"2 3 4 * +", 14},
+        {"10 5 / 2 +", 4},
+        {"15 7 1 1 + - / 3 * 2 1 1 + + -", 5},
+        {"100 50 -", 50},
+        {"2 2 *", 4},
+    };
+    
+    cout << "Evaluate Postfix Expression:\n" << string(50, '-') << endl;
+    
+    for (const auto& test : test3) {
+        try {
+            double result = evaluatePostfix(test.first);
+            cout << "Postfix: " << test.first << endl;
+            cout << "Result:  " << result;
+            cout << "  (Expected: " << test.second << ")";
+            cout << (abs(result - test.second) < 0.0001 ? " ✅" : " ❌") << endl;
+            cout << endl;
+        } catch (const exception& e) {
+            cout << "Error: " << e.what() << endl;
+            cout << endl;
+        }
     }
     
     return 0;
