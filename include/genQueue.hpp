@@ -20,7 +20,7 @@ class Queue {
         bool isEmpty() const {
             return lst.empty();
         }
-        T& fornt() {
+        T& front() {
             return lst.front();
         }
         T dequeue() {
@@ -32,6 +32,6 @@ class Queue {
             lst.push_back(el);
         }
     private: 
-        List<T> lst;
+        list<T> lst;
 };
 #endif
