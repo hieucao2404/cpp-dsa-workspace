@@ -1,0 +1,80 @@
+I. Goals, Principle and Patterns
+	1. Goals
+	Robustness
+	Adaptability
+	Reusability
+
+	Robust: capable of handling unexpected inputs that are not explicitly defined for its application.
+
+	Adaptability: ability of software to run with minimal change on different hardware and operating system platforms
+
+	Resusability: Same code could be usable as a compoent of different systems in various applications
+
+	2. Principles
+
+	- Abstraction
+	- Encapsulation
+	- Modularity
+
+	a. Abstraction
+		The notion of abstraction is to distill a complicated system down to its most fundmetal parts and describe these parts in a simple, precise languate.
+		Abstract data types(ADTs): is a mathematical model of a data structure that specifies the type of the data stored, the operations supported on them ans the types of the parameters of the operations. Ab ADT specifes what each operaion do, not how it does it.
+
+	b. Encapsulation
+		Encapsulation states that diffeent componnensts of a software system should not reveal the internal details of their respective implementaions.
+
+	c. Modularity
+		In addintion to abstraction and encapsulation, a fundamental principle of oop is MODULARITY. Refers to an organizing principle for code inwhich differnt components of a software system are divided into separate functional units
+
+	d. Inheritance
+		Protected Members
+		Specila acces privileges for derived classes can be provided by declaring members to be "protected". A protected member is public to all classes derived from this one but private to all other functions.
+		example: 
+
+		class Base {
+		private: int priv;
+		protected: int prot;
+		public: int publ;
+		};
+
+		class Derived: public Base {
+		void someMemberFunction() {
+		cout << priv; // ERROR: private member
+		cout << prot; // okay
+		cout << publ; // okay
+		}
+		};
+
+		class Unrelated {
+		Base X;
+
+		void anotherMemberFunction() {
+		cout << X.priv; // ERROR: private member
+		cout << X.prot; // ERROR: protected member
+		cout << X.publ; // okay
+		}
+		};
+
+	e. Polymorphism
+		Literally meas "many forms"
+
+
+
+II. Templates
+	Inheritance is only one mechanism that C++ provides in support of polymorphism
+
+	1. Function templates
+		C++ provides an automatic mechanism, called the functional template, to produce a generic function or an arbitrary type T. A function template provides a well-defined pattern from which concrete function may later be formlally defnied or instatitated.
+
+			template <typename T>
+			T genericMin(T a, T b) {
+				return (a < b ? a : b);
+			}
+
+		The declaration takes the form of the keyword "template" followed by the notation <typename T> which is the paramter list for the template. In this case, there is just one parameter T. The keyword "typename" indicates that T is the name of sometype
+
+			cout << genericMin(3,4) >> ' ' //= genericMin<int>(3,4)
+				<< genericMin('t','g') >> // genericMin<char>('t','g')
+
+	2. Clast templates
+		
