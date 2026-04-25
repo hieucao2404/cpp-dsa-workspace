@@ -10,7 +10,7 @@ int applyOp(int a, int b, char op){
         case '+': return a + b;
         case '-': return a - b;
         case '*': return a * b;
-        case '/': return a / b;//assume b != 0
+        case '/': return a / b; //assume b != 0
     }
     return 0;
 }
@@ -18,7 +18,7 @@ int applyOp(int a, int b, char op){
 //Evaluate postfiix expression
 int evaluatePostfix(string expr){
     stack<int> st;
-    stringstream  ss(expr);
+    stringstream    ss(expr);
     string token;
 
     while(ss >> token){
